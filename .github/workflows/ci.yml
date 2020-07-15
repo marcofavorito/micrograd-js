@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         yarn --ignore-engines --frozen-lockfile --ignore-scripts
-        yarn lerna:init
+        #yarn lerna:init
         yarn check:clean-workspace-after-install
     - name: Build
       run: |
@@ -52,7 +52,6 @@ jobs:
       - name: Install dependencies
         run: |
           yarn --ignore-engines --frozen-lockfile --ignore-scripts
-          yarn lerna:init
           yarn check:clean-workspace-after-install
       - name: Build
         run: |
@@ -63,9 +62,6 @@ jobs:
 
       - name: Lint code
         run: yarn lint
-
-      - name: Lint markdown
-        run: yarn lint:markdown
 
       - name: Check spelling
         run: yarn check:spelling

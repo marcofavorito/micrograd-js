@@ -7,7 +7,9 @@
     "test": "jest --coverage",
     "build": "tsc -p tsconfig.json",
     "lint": "node_modules/.bin/eslint --ext .js,.ts .",
-    "lint:fix": "node_modules/.bin/eslint --fix --ext .js,.ts ."
+    "lint:fix": "node_modules/.bin/eslint --fix --ext .js,.ts .",
+    "check:format": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
+    "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\""
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
     "codecov": "^3.7.0",
+    "cspell": "^4.0.63",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.18.0",
