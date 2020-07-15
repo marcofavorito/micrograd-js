@@ -1,0 +1,8 @@
+dist/
+node_modules/
+coverage/
+docs/
+request.js
+*.config.js
+.eslintrc.js
+

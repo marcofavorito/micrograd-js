@@ -1,0 +1,54 @@
+{
+  "name": "micrograd",
+  "version": "0.1.0",
+  "description": "A porting of Karpathy's Micrograd to JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "build": "tsc -p tsconfig.json",
+    "lint": "node_modules/.bin/eslint --ext .js,.ts .",
+    "lint:fix": "node_modules/.bin/eslint --fix --ext .js,.ts ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcofavorito/micrograd-js.git"
+  },
+  "keywords": [
+    "micrograd",
+    "machine-learning",
+    "neural-networks",
+    "automatic-differentiation",
+    "gradient-descent"
+  ],
+  "author": "Marco Favorito <marco.favorito@gmail.com> (https://marcofavorito.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcofavorito/micrograd-js/issues"
+  },
+  "homepage": "https://github.com/marcofavorito/micrograd-js#readme",
+  "files": [
+    "src",
+    "dist",
+    "index.js",
+    "index.d.ts"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.4",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "codecov": "^3.7.0",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-jsdoc": "^29.2.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.1.0",
+    "jsdoc": "^3.6.4",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.6"
+  }
+}
