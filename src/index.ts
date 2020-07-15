@@ -2,19 +2,19 @@ export default class Index {
   //This function is tested and part of it is uncovered
   uncovered_if = (a = true) => {
     if (a == true) {
-      return false
+      return false;
     } else {
-      return true
+      return true;
     }
-  }
+  };
 
   //This function will be fully covered
   fully_covered = () => {
-    return true
-  }
+    return true;
+  };
 
   //This function will not be tested by unit tests
   uncovered = () => {
-    return true
-  }
+    return true;
+  };
 }

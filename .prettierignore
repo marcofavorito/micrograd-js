@@ -1,0 +1,7 @@
+**/dist
+**/coverage
+**/shared-fixtures
+**/.vscode
+**/.vs
+.github
+
