@@ -1,0 +1,46 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "ignorePaths": [
+    "**/coverage/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/fixtures/**",
+    "**/*.{json,snap}",
+    ".cspell.json",
+    "yarn.lock",
+    ".github/workflows/**",
+    ".vscode/*.json"
+  ],
+  "dictionaries": [
+    "typescript",
+    "softwareTerms",
+    "node",
+    "en_US",
+    "npm",
+    "misc",
+    "filetypes"
+  ],
+  "ignoreRegExpList": [
+    "/```[\\w\\W]*?```/",
+    "/~~~[\\w\\W]*?~~~/",
+    "/``[\\w\\W]*?``/",
+    "/`[^`]*`/",
+    "/\\.\\/docs\\/rules\\/[^.]*.md/",
+    "/@typescript-eslint\\/[a-z-]+/",
+    "/\\.all-contributorsrc/",
+    "/TS[^\\s]+/",
+    "\\(#.+?\\)"
+  ],
+  "words": ["Micrograd"],
+  "overrides": [
+    {
+      "filename": "**/*.{ts,js}",
+      "ignoreRegExpList": ["/@[a-z]+/", "/#(end)?region/"],
+      "includeRegExpList": [
+        "/\\/\\*[\\s\\S]*?\\*\\/|([^\\\\:]|^)\\/\\/.*$/",
+        "/(\\/\\/[^\\n\\r]*[\\n\\r]+)/"
+      ]
+    }
+  ]
+}
