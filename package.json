@@ -10,6 +10,7 @@
     "lint:fix": "node_modules/.bin/eslint --fix --ext .js,.ts .",
     "check:clean-workspace-after-install": "git diff --quiet --exit-code",
     "check:format": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
+    "prettier:fix": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\""
   },
   "repository": {

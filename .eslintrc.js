@@ -22,6 +22,14 @@ module.exports = {
     },
   },
   plugins: ['@typescript-eslint', 'jest', 'jsdoc'],
-  rules: {},
+  rules: {
+    '@typescript-eslint/no-this-alias': [
+      'error',
+      {
+        allowDestructuring: false, // Allow `const { props, state } = this`; false by default
+        allowedNames: ['self'], // Allow `const self = this`; `[]` by default
+      },
+    ],
+  },
   settings: {},
 };
