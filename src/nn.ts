@@ -1,14 +1,27 @@
-import Value from './engine';
-import ensureValue from './engine';
+import Value, { ensureValue } from './engine';
 import { range } from './utils';
 
 export class Module {
   parameters(): Value[] {
     return [];
   }
-  call(x: any[]): Value[] {
+  call_value_(x: Value[]): Value[] {
     return [new Value(0.0)];
   }
+  call_number_(x: number[]): Value[] {
+    const input: Value[] = Array.from(range(0, x.length), i =>
+      ensureValue(x[i]),
+    );
+    return this.call_value_(input);
+  }
+  call(x: Value[] | number[]): Value[] {
+    if (typeof x[0] === 'number') {
+      return this.call_number_(<number[]>x);
+    } else {
+      return this.call_value_(<Value[]>x);
+    }
+  }
+
   zero_grad(): void {
     this.parameters().forEach(function (v: Value) {
       v.grad = 0;
@@ -31,11 +44,10 @@ export class Neuron extends Module {
     this.nonlin = nonlin;
   }
 
-  call(x: any[]): Value[] {
-    const input = Array.from(range(0, x.length), i => new ensureValue(x[i]));
+  call_value_(x: Value[]): Value[] {
     const act = this.w
       .map(function (e: Value, i: number): Value {
-        return e.mul(input[i]);
+        return e.mul(x[i]);
       })
       .reduce((sum, current) => sum.add(current), new Value(0.0))
       .add(this.b);
@@ -59,9 +71,8 @@ export class Layer extends Module {
     this.neurons = Array.from(range(0, nout), x => new Neuron(nin, nonlin));
   }
 
-  call(x: any[]): Value[] {
-    const input = Array.from(range(0, x.length), i => new ensureValue(x[i]));
-    const output = Array.from(this.neurons, n => n.call(input)[0]);
+  call_value_(x: Value[]): Value[] {
+    const output = Array.from(this.neurons, n => n.call(x)[0]);
     return output;
   }
 
@@ -86,12 +97,12 @@ export class MLP extends Module {
     super();
     const sizes = [nin].concat(nouts);
     this.layers = Array.from(
-      sizes,
+      nouts.keys(),
       i => new Layer(sizes[i], sizes[i + 1], i != nouts.length),
     );
   }
 
-  call(x: any[]): Value[] {
+  call_value_(x: Value[]): Value[] {
     let result: Value[] = this.layers[0].call(x);
     for (const layer of this.layers.slice(1)) {
       result = layer.call(result);

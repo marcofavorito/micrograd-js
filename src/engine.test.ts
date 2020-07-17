@@ -1,8 +1,14 @@
-import Value from './engine';
+import Value, { ensureValue } from './engine';
 
 test('test initialization', () => {
   const valueObj = new Value(3.14);
   expect(valueObj.data).toEqual(3.14);
+
+  const x = ensureValue(valueObj);
+  expect(x.data).toEqual(3.14);
+
+  const y = ensureValue(ensureValue(3.14));
+  expect(y.data).toEqual(3.14);
 });
 
 test('test grad', () => {

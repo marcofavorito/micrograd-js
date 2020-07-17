@@ -2,7 +2,6 @@
   "name": "micrograd",
   "version": "0.1.0",
   "description": "A porting of Karpathy's Micrograd to JS",
-  "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
     "build": "tsc -p tsconfig.json",
@@ -32,9 +31,7 @@
   "homepage": "https://github.com/marcofavorito/micrograd-js#readme",
   "files": [
     "src",
-    "dist",
-    "index.js",
-    "index.d.ts"
+    "dist"
   ],
   "dependencies": {},
   "devDependencies": {
