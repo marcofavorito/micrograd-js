@@ -10,7 +10,7 @@ function isValue(x: any): x is Value {
   return x instanceof Value;
 }
 
-function ensureValue(x: number | Value) {
+export function ensureValue(x: number | Value) {
   if (isNumber(x)) {
     return new Value(x);
   } else {
