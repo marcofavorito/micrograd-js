@@ -18,7 +18,7 @@ export function ensureValue(x: number | Value): Value {
   }
 }
 
-export default class Value {
+export class Value {
   data: number;
   children: Value[];
   op: string;
@@ -111,6 +111,6 @@ export default class Value {
   }
 
   toString(): string {
-    return 'Value(data=${this.data}, grad=${this.grad}, op=${this.op})';
+    return `Value(data=${this.data}, grad=${this.grad}, op=${this.op})`;
   }
 }

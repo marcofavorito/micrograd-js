@@ -1,4 +1,4 @@
-import Value, { ensureValue } from './engine';
+import { Value, ensureValue } from './engine';
 import { range } from './utils';
 
 export class Module {

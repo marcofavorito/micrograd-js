@@ -1,21 +1,21 @@
-import Value, { ensureValue } from './engine';
+import { Value, ensureValue } from './engine';
 
 test('test initialization', () => {
-  const valueObj = new Value(3.14);
+  const valueObj: Value = new Value(3.14);
   expect(valueObj.data).toEqual(3.14);
 
-  const x = ensureValue(valueObj);
+  const x: Value = ensureValue(valueObj);
   expect(x.data).toEqual(3.14);
 
-  const y = ensureValue(ensureValue(3.14));
+  const y: Value = ensureValue(ensureValue(3.14));
   expect(y.data).toEqual(3.14);
 });
 
 test('test grad', () => {
-  const v1 = new Value(2);
-  const v2 = new Value(3);
+  const v1: Value = new Value(2);
+  const v2: Value = new Value(3);
 
-  const plus = v1.add(v2);
+  const plus: Value = v1.add(v2);
 
   plus.backward();
 
