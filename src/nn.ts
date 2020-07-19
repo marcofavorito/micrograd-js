@@ -45,6 +45,9 @@ export class Neuron extends Module {
   }
 
   call_value_(x: Value[]): Value[] {
+    if (x.length != this.w.length) {
+      throw new Error('Different sizes');
+    }
     const act = this.w
       .map(function (e: Value, i: number): Value {
         return e.mul(x[i]);
@@ -98,14 +101,14 @@ export class MLP extends Module {
     const sizes = [nin].concat(nouts);
     this.layers = Array.from(
       nouts.keys(),
-      i => new Layer(sizes[i], sizes[i + 1], i != nouts.length),
+      i => new Layer(sizes[i], sizes[i + 1], i != nouts.length - 1),
     );
   }
 
   call_value_(x: Value[]): Value[] {
     let result: Value[] = this.layers[0].call(x);
-    for (const layer of this.layers.slice(1)) {
-      result = layer.call(result);
+    for (let i = 1; i < this.layers.length; i++) {
+      result = this.layers[i].call(result);
     }
     return result;
   }

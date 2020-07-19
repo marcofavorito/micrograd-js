@@ -18,24 +18,16 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
-<style>
-body {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #333;
-  padding: 20px;
-}
-</style>
 
 <style type="text/css">
 canvas {
-    border: 1px solid #555;
-    margin-top: 10px;
-}
-#wrap {
-  width: 800px;
-  margin-right: auto;
+  border: 1px solid #555;
+  margin-top: 10px;
+  padding-left: 0;
+  padding-right: 0;
   margin-left: auto;
-  margin-bottom: 200px;
+  margin-right: auto;
+  display: block;
 }
 </style>
   <script src="https://cs.stanford.edu/people/karpathy/convnetjs/demo/npgmain.js"></script>
@@ -43,18 +35,40 @@ canvas {
   <script src="app/data.js"></script>
   <script src="app/demo.js"></script>
   <script>
+    var train_interval;
+    var N = 200;
+    var [X_data, y_data] = circle_data(N);
     var epochs = 100;
-    var N_in = 1;
-    var dims = [16, 16, 1];
+    var N_in = 2;
+    var dims = [16, 1];
+    var lr = 0.01;
+    var alpha = 0.0001;
+    var batch_size = 32;
+    var k = 0;
     model = new microgradjs.MLP(N_in, dims);
-    train(epochs, model, X_data, y_data);
 
-    var ss = 150.0;
+    function start_training(){
+      return setInterval(function(){
+        if (k > epochs){
+          clearInterval(train_interval);
+          return
+        }
+        var [loss, acc] = do_epoch(k++, model, X_data, y_data, lr, alpha, batch_size);
+        $("#label-loss").text("Loss: " + loss);
+        $("#label-accuracy").text("Accuracy: " + acc + "%");
+        $("#label-epoch").text("Epoch: " + (k-1));
+      }, 100);
+    }
+
+    train_interval = start_training();
+
+    var ss = 100.0;
     function keyDown(key){}
     function keyUp(key) {}
     function mouseClick(e) {}
     function myinit(){}
-    function update(){}
+    function update(){
+    }
     function draw(){
       ctx.clearRect(0,0,WIDTH,HEIGHT);
       ctx.fillStyle = "black";
@@ -69,7 +83,7 @@ canvas {
       ctx.stroke();
 
       // draw decisions in the grid
-      var density= 50.0;
+      var density= 10.0;
       for(var x=0.0, cx=0; x<=WIDTH; x+= density, cx++) {
         for(var y=0.0, cy=0; y<=HEIGHT; y+= density, cy++) {
           //var dec= svm.marginOne([(x-WIDTH/2)/ss, (y-HEIGHT/2)/ss]);
@@ -84,10 +98,18 @@ canvas {
       }
 
       for (var i=0; i<X_data.length; i++){
-        if(y_data[i]==1) ctx.fillStyle = 'rgb(100,200,100)';
+        if(y_data[i] === 1)
+          ctx.fillStyle = 'rgb(100,200,100)';
         else ctx.fillStyle = 'rgb(200,100,100)';
         drawCircle(X_data[i][0]*ss+WIDTH/2, X_data[i][1]*ss+HEIGHT/2, 5.0);
       }
+    }
+
+    function reload(make_dataset){
+      model = new microgradjs.MLP(N_in, dims);
+      [X_data, y_data] = make_dataset(N);
+      k = 0;
+      train_interval = start_training();
     }
 
   </script>
@@ -97,11 +119,28 @@ canvas {
 
 <div class="container">
   <h1>Micrograd-JS</h1>
-  <canvas id="NPGcanvas" width="800" height="500">Browser not supported for Canvas. Get a real browser.</canvas>
+  Minimalistic Autograd engine in Typescript. (Porting from <a href="https://github.com/karpathy/micrograd">Karpathy's micrograd</a>).
+   <div class="row form-group">
+      <div class="col text-center">
+        <button class="btn btn-default" onclick="reload(moons_data)">Moons data</button>
+        <button class="btn btn-default" onclick="reload(spiral_data)">Spiral data</button>
+        <button class="btn btn-default" onclick="reload(circle_data)">Circle data</button>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col text-center">
+        <div>
+          <label id="label-epoch"></label>
+          <label id="label-accuracy"></label>
+          <label id="label-loss"> </label>
+        </div>
+      </div>
+    </div>
+  <canvas id="NPGcanvas" width="800" height="600">Browser not supported for Canvas. Get a real browser.</canvas>
 </div>
 
 <script>
-  NPGinit(1);
+  NPGinit(20);
 </script>
 
 </body>

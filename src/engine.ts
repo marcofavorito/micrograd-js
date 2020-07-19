@@ -82,7 +82,7 @@ export class Value {
     const out = new Value(this.data < 0 ? 0.0 : this.data, [this], 'ReLU');
 
     out._backward = function () {
-      self.grad = (out.data > 0 ? out.data : 0.0) * out.grad;
+      self.grad += (out.data > 0.0 ? 1.0 : 0.0) * out.grad;
     };
     return out;
   }
