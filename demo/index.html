@@ -29,6 +29,14 @@ canvas {
   margin-right: auto;
   display: block;
 }
+
+#github-ribbon {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  border: 0;
+}
+
 </style>
   <script src="https://cs.stanford.edu/people/karpathy/convnetjs/demo/npgmain.js"></script>
   <script src="lib/microgradjs.js"></script>
@@ -116,11 +124,13 @@ canvas {
 </head>
 
 <body>
-
 <div class="container">
   <h1>Micrograd-JS</h1>
   Minimalistic Autograd engine in Typescript. (Porting from <a href="https://github.com/karpathy/micrograd">Karpathy's micrograd</a>).
-   <div class="row form-group">
+  <a href="https://github.com/marcofavorito/micrograd-js.git">
+    <img width="149" id="github-ribbon" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+  </a>
+  <div class="row form-group">
       <div class="col text-center">
         <button class="btn btn-default" onclick="reload(moons_data)">Moons data</button>
         <button class="btn btn-default" onclick="reload(spiral_data)">Spiral data</button>
