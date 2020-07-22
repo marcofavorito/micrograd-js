@@ -30,4 +30,3 @@ npm install micrograd
 ## License
 
 MIT License. Check the [license](./license) file.
-

@@ -33,7 +33,14 @@
     "/TS[^\\s]+/",
     "\\(#.+?\\)"
   ],
-  "words": ["Micrograd", "Autograd", "Karpathy's"],
+  "words": [
+    "Micrograd",
+    "Autograd",
+    "Karpathy's",
+    "Marco",
+    "Favorito",
+    "marcofavorito"
+  ],
   "overrides": [
     {
       "filename": "**/*.{ts,js}",
