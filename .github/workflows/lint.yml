@@ -1,0 +1,39 @@
+name: test 
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+env:
+  PRIMARY_NODE_VERSION: 12
+
+jobs:
+  linting_and_style:
+    name: Code style and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ env.PRIMARY_NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.PRIMARY_NODE_VERSION }}
+      - name: Install dependencies
+        run: |
+          yarn --ignore-engines --frozen-lockfile --ignore-scripts
+          yarn check:clean-workspace-after-install
+      - name: Build
+        run: |
+          yarn build
+
+      - name: Check code formatting
+        run: yarn check:format
+
+      - name: Lint code
+        run: yarn lint
+
+      - name: Check spelling
+        run: yarn check:spelling
+
