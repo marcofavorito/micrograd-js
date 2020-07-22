@@ -3,11 +3,11 @@
 ![test](https://github.com/marcofavorito/micrograd-js/workflows/test/badge.svg)
 ![lint](https://github.com/marcofavorito/micrograd-js/workflows/lint/badge.svg)
 [![codecov](https://codecov.io/gh/marcofavorito/micrograd-js/branch/master/graph/badge.svg?token=J1EFVF48CA)](https://codecov.io/gh/marcofavorito/micrograd-js)
-[![vulnerabilities](https://snyk.io/test/github/marcofavorito/micrograd-js?targetFile=package.json)](https://snyk.io/test/github/marcofavorito/micrograd-js/badge.svg?targetFile=package.json)
-[![dependencies]("https://david-dm.org/marcofavorito/micrograd-js">)](https://david-dm.org/marcofavorito/micrograd-js/status.svg)
-[![code style](https://github.com/prettier/prettier/)](https://img.shields.io/badge/code_style-Prettier-5ed9c7.svg)
-[![npm](https://www.npmjs.com/package/micrograd)](https://img.shields.io/npm/v/micrograd.svg)
-[![license](https://github.com/marcofavorito/micrograd-js/tree/master/license)](https://img.shields.io/github/license/marcofavorito/micrograd-js.svg)
+[![vulnerabilities](https://snyk.io/test/github/marcofavorito/micrograd-js/badge.svg?targetFile=package.json)](https://snyk.io/test/github/marcofavorito/micrograd-js?targetFile=package.json)
+[![dependencies](https://david-dm.org/marcofavorito/micrograd-js/status.svg)](https://david-dm.org/marcofavorito/micrograd-js)
+[![code style](https://img.shields.io/badge/code_style-Prettier-5ed9c7.svg)](https://github.com/prettier/prettier/)
+[![npm](https://img.shields.io/npm/v/micrograd.svg)](https://www.npmjs.com/package/micrograd)
+[![license](https://img.shields.io/github/license/marcofavorito/micrograd-js.svg)](https://github.com/marcofavorito/micrograd-js/tree/master/license)
 
 Minimal Autograd engine in Typescript.
 (Porting from [Karpathy's micrograd](https://github.com/karpathy/micrograd.git)).
