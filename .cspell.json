@@ -10,7 +10,8 @@
     ".cspell.json",
     "yarn.lock",
     ".github/workflows/**",
-    ".vscode/*.json"
+    ".vscode/*.json",
+    "demo/lib/**"
   ],
   "dictionaries": [
     "typescript",
@@ -32,7 +33,15 @@
     "/TS[^\\s]+/",
     "\\(#.+?\\)"
   ],
-  "words": ["Micrograd"],
+  "words": [
+    "Micrograd",
+    "Autograd",
+    "Karpathy's",
+    "Marco",
+    "Favorito",
+    "marcofavorito",
+    "codecov"
+  ],
   "overrides": [
     {
       "filename": "**/*.{ts,js}",
