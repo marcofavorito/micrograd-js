@@ -19,6 +19,7 @@
     "check:clean-workspace-after-install": "git diff --quiet --exit-code",
     "check:format": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
     "prettier:fix": "prettier --write \"./**/*.{ts,js,json,md}\"",
+    "clean": "rm -rf dist/ coverage/",
     "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\""
   },
   "repository": {
