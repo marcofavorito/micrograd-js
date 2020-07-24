@@ -2,7 +2,7 @@
 
 ![test](https://github.com/marcofavorito/micrograd-js/workflows/test/badge.svg)
 ![lint](https://github.com/marcofavorito/micrograd-js/workflows/lint/badge.svg)
-[![codecov](https://codecov.io/gh/marcofavorito/micrograd-js/branch/master/graph/badge.svg?token=J1EFVF48CA)](https://codecov.io/gh/marcofavorito/micrograd-js)
+[![codecov](https://codecov.io/gh/marcofavorito/micrograd-js/branch/master/graph/badge.svg)](https://codecov.io/gh/marcofavorito/micrograd-js)
 [![vulnerabilities](https://snyk.io/test/github/marcofavorito/micrograd-js/badge.svg?targetFile=package.json)](https://snyk.io/test/github/marcofavorito/micrograd-js?targetFile=package.json)
 [![dependencies](https://david-dm.org/marcofavorito/micrograd-js/status.svg)](https://david-dm.org/marcofavorito/micrograd-js)
 [![code style](https://img.shields.io/badge/code_style-Prettier-5ed9c7.svg)](https://github.com/prettier/prettier/)
