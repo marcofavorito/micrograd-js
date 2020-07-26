@@ -17,8 +17,8 @@
     "lint": "node_modules/.bin/eslint -c .eslintrc.js --ext .js,.ts .",
     "lint:fix": "node_modules/.bin/eslint -c .eslintrc.js --fix --ext .js,.ts .",
     "check:clean-workspace-after-install": "git diff --quiet --exit-code",
-    "check:format": "prettier --list-different \"./**/*.{ts,js,json,md}\"",
-    "prettier:fix": "prettier --write \"./**/*.{ts,js,json,md}\"",
+    "check:format": "prettier --list-different \"./**/*.{ts,js,json,md,html}\"",
+    "prettier:fix": "prettier --write \"./**/*.{ts,js,json,md,html}\"",
     "clean": "rm -rf dist/ coverage/",
     "check:spelling": "cspell --config=.cspell.json \"**/*.{md,ts,js}\""
   },

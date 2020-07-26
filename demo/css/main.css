@@ -1,0 +1,21 @@
+canvas {
+border: 1px solid #555;
+margin-top: 10px;
+padding-left: 0;
+padding-right: 0;
+margin-left: auto;
+margin-right: auto;
+display: block;
+}
+
+#github-ribbon {
+position: absolute;
+top: 0;
+right: 0;
+border: 0;
+}
+
+#control-buttons{
+top: 10px;
+display: block;
+}
