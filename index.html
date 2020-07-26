@@ -1,149 +1,243 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Micrograd-js: Classify toy 2D data</title>
-<link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>Micrograd-js: Classify toy 2D data</title>
+    <link
+      href="http://fonts.googleapis.com/css?family=Cabin"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+      integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
+      crossorigin="anonymous"
+    />
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
 
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+      crossorigin="anonymous"
+    ></script>
 
-<style type="text/css">
-canvas {
-  border: 1px solid #555;
-  margin-top: 10px;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-</style>
-  <script src="https://cs.stanford.edu/people/karpathy/convnetjs/demo/npgmain.js"></script>
-  <script src="lib/microgradjs.js"></script>
-  <script src="app/data.js"></script>
-  <script src="app/demo.js"></script>
-  <script>
-    var train_interval;
-    var N = 200;
-    var [X_data, y_data] = circle_data(N);
-    var epochs = 100;
-    var N_in = 2;
-    var dims = [16, 1];
-    var lr = 0.01;
-    var alpha = 0.0001;
-    var batch_size = 32;
-    var k = 0;
-    model = new microgradjs.MLP(N_in, dims);
-
-    function start_training(){
-      return setInterval(function(){
-        if (k > epochs){
-          clearInterval(train_interval);
-          return
-        }
-        var [loss, acc] = do_epoch(k++, model, X_data, y_data, lr, alpha, batch_size);
-        $("#label-loss").text("Loss: " + loss);
-        $("#label-accuracy").text("Accuracy: " + acc + "%");
-        $("#label-epoch").text("Epoch: " + (k-1));
-      }, 100);
-    }
-
-    train_interval = start_training();
-
-    var ss = 100.0;
-    function keyDown(key){}
-    function keyUp(key) {}
-    function mouseClick(e) {}
-    function myinit(){}
-    function update(){
-    }
-    function draw(){
-      ctx.clearRect(0,0,WIDTH,HEIGHT);
-      ctx.fillStyle = "black";
-      // draw axes
-      ctx.beginPath();
-      ctx.strokeStyle = 'rgb(50,50,50)';
-      ctx.lineWidth = 1;
-      ctx.moveTo(0, HEIGHT/2);
-      ctx.lineTo(WIDTH, HEIGHT/2);
-      ctx.moveTo(WIDTH/2, 0);
-      ctx.lineTo(WIDTH/2, HEIGHT);
-      ctx.stroke();
-
-      // draw decisions in the grid
-      var density= 10.0;
-      for(var x=0.0, cx=0; x<=WIDTH; x+= density, cx++) {
-        for(var y=0.0, cy=0; y<=HEIGHT; y+= density, cy++) {
-          //var dec= svm.marginOne([(x-WIDTH/2)/ss, (y-HEIGHT/2)/ss]);
-          var point = [(x-WIDTH/2)/ss, (y-HEIGHT/2)/ss];
-          var a = model.call(point);
-          if(a[0].data < 0.0)
-            ctx.fillStyle = 'rgb(250, 150, 150)';
-          else
-            ctx.fillStyle = 'rgb(150, 250, 150)';
-          ctx.fillRect(x-density/2-1, y-density/2-1, density+2, density+2);
-        }
-      }
-
-      for (var i=0; i<X_data.length; i++){
-        if(y_data[i] === 1)
-          ctx.fillStyle = 'rgb(100,200,100)';
-        else ctx.fillStyle = 'rgb(200,100,100)';
-        drawCircle(X_data[i][0]*ss+WIDTH/2, X_data[i][1]*ss+HEIGHT/2, 5.0);
-      }
-    }
-
-    function reload(make_dataset){
+    <script src="https://cs.stanford.edu/people/karpathy/convnetjs/demo/npgmain.js"></script>
+    <script src="lib/microgradjs.js"></script>
+    <script src="app/data.js"></script>
+    <script src="app/demo.js"></script>
+    <script>
+      var train_interval;
+      var N = 200;
+      var [X_data, y_data] = circle_data(N);
+      var epochs = 100;
+      var N_in = 2;
+      var dims = [16, 1];
+      var lr = 0.01;
+      var alpha = 0.0001;
+      var batch_size = 32;
+      var k = 0;
       model = new microgradjs.MLP(N_in, dims);
-      [X_data, y_data] = make_dataset(N);
-      k = 0;
+
+      function start_training() {
+        return setInterval(function () {
+          if (k > epochs) {
+            clearInterval(train_interval);
+            return;
+          }
+          var [loss, acc] = do_epoch(
+            k++,
+            model,
+            X_data,
+            y_data,
+            lr,
+            alpha,
+            batch_size,
+          );
+          $('#label-loss').text('Loss: ' + loss);
+          $('#label-accuracy').text('Accuracy: ' + acc + '%');
+          $('#label-epoch').text('Epoch: ' + (k - 1));
+        }, 100);
+      }
+
       train_interval = start_training();
-    }
 
-  </script>
-</head>
+      var ss = 100.0;
+      function keyDown(key) {}
+      function keyUp(key) {}
+      function mouseClick(e) {}
+      function myinit() {}
+      function update() {}
+      function draw() {
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        ctx.fillStyle = 'black';
+        // draw axes
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgb(50,50,50)';
+        ctx.lineWidth = 1;
+        ctx.moveTo(0, HEIGHT / 2);
+        ctx.lineTo(WIDTH, HEIGHT / 2);
+        ctx.moveTo(WIDTH / 2, 0);
+        ctx.lineTo(WIDTH / 2, HEIGHT);
+        ctx.stroke();
 
-<body>
+        // draw decisions in the grid
+        var density = 10.0;
+        for (var x = 0.0, cx = 0; x <= WIDTH; x += density, cx++) {
+          for (var y = 0.0, cy = 0; y <= HEIGHT; y += density, cy++) {
+            //var dec= svm.marginOne([(x-WIDTH/2)/ss, (y-HEIGHT/2)/ss]);
+            var point = [(x - WIDTH / 2) / ss, (y - HEIGHT / 2) / ss];
+            var a = model.call(point);
+            if (a[0].data < 0.0) ctx.fillStyle = 'rgb(250, 150, 150)';
+            else ctx.fillStyle = 'rgb(150, 250, 150)';
+            ctx.fillRect(
+              x - density / 2 - 1,
+              y - density / 2 - 1,
+              density + 2,
+              density + 2,
+            );
+          }
+        }
 
-<div class="container">
-  <h1>Micrograd-JS</h1>
-  Minimalistic Autograd engine in Typescript. (Porting from <a href="https://github.com/karpathy/micrograd">Karpathy's micrograd</a>).
-   <div class="row form-group">
-      <div class="col text-center">
-        <button class="btn btn-default" onclick="reload(moons_data)">Moons data</button>
-        <button class="btn btn-default" onclick="reload(spiral_data)">Spiral data</button>
-        <button class="btn btn-default" onclick="reload(circle_data)">Circle data</button>
+        for (var i = 0; i < X_data.length; i++) {
+          if (y_data[i] === 1) ctx.fillStyle = 'rgb(100,200,100)';
+          else ctx.fillStyle = 'rgb(200,100,100)';
+          drawCircle(
+            X_data[i][0] * ss + WIDTH / 2,
+            X_data[i][1] * ss + HEIGHT / 2,
+            5.0,
+          );
+        }
+      }
+
+      function reload(make_dataset) {
+        model = new microgradjs.MLP(N_in, dims);
+        [X_data, y_data] = make_dataset(N);
+        k = 0;
+        train_interval = start_training();
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Micrograd-JS</h1>
+
+      <div align="center">
+        <a
+          href="https://github.com/marcofavorito/micrograd-js/actions?query=workflow%3Atest"
+        >
+          <img
+            src="https://github.com/marcofavorito/micrograd-js/workflows/test/badge.svg"
+          />
+        </a>
+        <a
+          href="https://github.com/marcofavorito/micrograd-js/actions?query=workflow%3Alint"
+        >
+          <img
+            src="https://github.com/marcofavorito/micrograd-js/workflows/lint/badge.svg"
+          />
+        </a>
+        <a href="https://codecov.io/gh/marcofavorito/micrograd-js">
+          <img
+            src="https://codecov.io/gh/marcofavorito/micrograd-js/branch/master/graph/badge.svg"
+          />
+        </a>
+        <a
+          href="https://snyk.io/test/github/marcofavorito/micrograd-js?targetFile=package.json"
+        >
+          <img
+            src="https://snyk.io/test/github/marcofavorito/micrograd-js/badge.svg?targetFile=package.json"
+          />
+        </a>
+        <a href="https://david-dm.org/marcofavorito/micrograd-js">
+          <img
+            src="https://david-dm.org/marcofavorito/micrograd-js/status.svg"
+          />
+        </a>
+        <a href="https://github.com/prettier/prettier/">
+          <img
+            src="https://img.shields.io/badge/code_style-Prettier-5ed9c7.svg"
+          />
+        </a>
+        <a href="https://www.npmjs.com/package/micrograd">
+          <img src="https://img.shields.io/npm/v/micrograd.svg" />
+        </a>
+        <a
+          href="https://github.com/marcofavorito/micrograd-js/tree/master/license"
+        >
+          <img
+            src="https://img.shields.io/github/license/marcofavorito/micrograd-js.svg"
+          />
+        </a>
       </div>
-    </div>
-    <div class="row form-group">
-      <div class="col text-center">
-        <div>
-          <label id="label-epoch"></label>
-          <label id="label-accuracy"></label>
-          <label id="label-loss"> </label>
+
+      <br />
+      <div class="row">
+        Minimalistic Autograd engine in Typescript. (Porting from
+        <a href="https://github.com/karpathy/micrograd">Karpathy's micrograd</a
+        >).
+      </div>
+
+      <a href="https://github.com/marcofavorito/micrograd-js.git">
+        <img
+          width="149"
+          id="github-ribbon"
+          height="149"
+          src="https://github.blog/wp-content/uploads/2008/12/forkme_right_red_aa0000.png?resize=149%2C149"
+          class="attachment-full size-full"
+          alt="Fork me on GitHub"
+          data-recalc-dims="1"
+        />
+      </a>
+
+      <br />
+      <div id="control-buttons" class="row form-group">
+        <div class="col text-center">
+          <button class="btn btn-default" onclick="reload(moons_data)">
+            Moons data
+          </button>
+          <button class="btn btn-default" onclick="reload(spiral_data)">
+            Spiral data
+          </button>
+          <button class="btn btn-default" onclick="reload(circle_data)">
+            Circle data
+          </button>
         </div>
       </div>
+      <div class="row form-group">
+        <div class="col text-center">
+          <div>
+            <label id="label-epoch"></label>
+            <label id="label-accuracy"></label>
+            <label id="label-loss"> </label>
+          </div>
+        </div>
+      </div>
+      <canvas id="NPGcanvas" width="800" height="600"
+        >Browser not supported for Canvas. Get a real browser.</canvas
+      >
     </div>
-  <canvas id="NPGcanvas" width="800" height="600">Browser not supported for Canvas. Get a real browser.</canvas>
-</div>
 
-<script>
-  NPGinit(15);
-</script>
-
-</body>
+    <script>
+      NPGinit(15);
+    </script>
+  </body>
 </html>
-
-
