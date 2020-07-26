@@ -24,6 +24,7 @@ cp ../dist/microgradjs.js ./lib
 
 
 # commit changes
+git add .
 git commit -m "Update gh-pages."
 git push origin gh-pages
 
